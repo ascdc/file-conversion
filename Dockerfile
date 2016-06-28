@@ -20,4 +20,4 @@ RUN chmod +x /script/*.sh && \
 	echo "*/1 * * * * root /script/command.sh">> /etc/crontab
 
 WORKDIR /script
-ENTRYPOINT ["/run.sh"]
+ENTRYPOINT ["/script/run.sh"]
