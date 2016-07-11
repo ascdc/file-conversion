@@ -14,7 +14,7 @@ RUN chmod +x /script/*.sh && \
 	add-apt-repository -y ppa:mc3man/trusty-media && \
 	apt-get update && \
 	apt-get -y dist-upgrade && \
-	apt-get install -y ffmpeg flac shntool libav-tools imagemagick tofrodos unrar-free p7zip-full php7.0-cli php7.0-mysql && \
+	apt-get install -y ffmpeg flac shntool libav-tools imagemagick sox tofrodos unrar-free p7zip-full php7.0-cli php7.0-mysql && \
 	echo "SHELL=/bin/sh"> /etc/crontab && \
 	echo "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin">> /etc/crontab && \
 	echo "*/1 * * * * root /script/command.sh">> /etc/crontab
