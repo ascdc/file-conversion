@@ -7,7 +7,7 @@ ADD command.sh /script/command.sh
 RUN chmod +x /script/*.sh && \
 	apt-get update && \
 	DEBIAN_FRONTEND=noninteractive && \
-	apt-get -y install software-properties-common python-software-properties cron && \
+	apt-get -y install software-properties-common python-software-properties cron mariadb-client-5.5 && \
 	locale-gen en_US.UTF-8 && \
 	export LANG=en_US.UTF-8 && \
 	add-apt-repository -y ppa:ondrej/php && \
