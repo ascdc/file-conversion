@@ -17,7 +17,10 @@ RUN chmod +x /script/*.sh && \
 	apt-get install -y ffmpeg flac shntool libav-tools imagemagick sox tofrodos unrar-free p7zip-full php7.0-cli php7.0-mysql && \
 	echo "SHELL=/bin/sh"> /etc/crontab && \
 	echo "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin">> /etc/crontab && \
-	echo "*/1 * * * * root /script/command.sh">> /etc/crontab
+	echo "*/1 * * * * root /script/command.sh">> /etc/crontab && \
+	apt-get install -y subversion build-essential libxvidcore4 zlib1g-dbg zlib1g-dev && \
+	svn co https://svn.code.sf.net/p/gpac/code/trunk/gpac gpac && cd gpac && \
+	./configure --disable-opengl --use-js=no --use-ft=no --use-jpeg=no --use-png=no --use-faad=no --use-mad=no --use-xvid=no --use-ffmpeg=no --use-ogg=no --use-vorbis=no --use-theora=no --use-openjpeg=no && make && make install && cp bin/gcc/libgpac.so /usr/lib
 
 WORKDIR /script
 ENTRYPOINT ["/script/run.sh"]
