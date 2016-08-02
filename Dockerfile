@@ -3,6 +3,7 @@ MAINTAINER ASCDC <asdc.sinica@gmail.com>
 
 ADD run.sh /script/run.sh
 ADD command.sh /script/command.sh
+ADD set_root_pw.sh /script/set_root_pw.sh
 
 RUN chmod +x /script/*.sh && \
 	apt-get update && \
@@ -18,9 +19,17 @@ RUN chmod +x /script/*.sh && \
 	echo "SHELL=/bin/sh"> /etc/crontab && \
 	echo "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin">> /etc/crontab && \
 	echo "*/1 * * * * root /script/command.sh">> /etc/crontab && \
-	apt-get install -y subversion build-essential libxvidcore4 zlib1g-dbg zlib1g-dev && \
+	apt-get install -y subversion build-essential libxvidcore4 zlib1g-dbg zlib1g-dev openssh-server pwgen rsync && \
 	svn co https://svn.code.sf.net/p/gpac/code/trunk/gpac gpac && cd gpac && \
-	./configure --disable-opengl --use-js=no --use-ft=no --use-jpeg=no --use-png=no --use-faad=no --use-mad=no --use-xvid=no --use-ffmpeg=no --use-ogg=no --use-vorbis=no --use-theora=no --use-openjpeg=no && make && make install && cp bin/gcc/libgpac.so /usr/lib
+	./configure --disable-opengl --use-js=no --use-ft=no --use-jpeg=no --use-png=no --use-faad=no --use-mad=no --use-xvid=no --use-ffmpeg=no --use-ogg=no --use-vorbis=no --use-theora=no --use-openjpeg=no && make && make install && cp bin/gcc/libgpac.so /usr/lib && \
+	mkdir -p /var/run/sshd && \
+	sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
+	sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
+	sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
+
+
+ENV AUTHORIZED_KEYS **None**
+EXPOSE 22
 
 WORKDIR /script
 ENTRYPOINT ["/script/run.sh"]
