@@ -8,7 +8,7 @@ ADD set_root_pw.sh /script/set_root_pw.sh
 RUN chmod +x /script/*.sh && \
 	apt-get update && \
 	DEBIAN_FRONTEND=noninteractive && \
-	apt-get -y install software-properties-common python-software-properties cron mariadb-client-5.5 && \
+	apt-get -y install software-properties-common python-software-properties cron mariadb-client-5.5 vim && \
 	locale-gen en_US.UTF-8 && \
 	export LANG=en_US.UTF-8 && \
 	add-apt-repository -y ppa:ondrej/php && \
