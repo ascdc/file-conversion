@@ -4,6 +4,8 @@ MAINTAINER ASCDC <asdc.sinica@gmail.com>
 ADD run.sh /script/run.sh
 ADD command.sh /script/command.sh
 ADD set_root_pw.sh /script/set_root_pw.sh
+ADD locale.gen /etc/locale.gen
+ADD locale-archive /usr/lib/locale/locale-archive	
 
 RUN chmod +x /script/*.sh && \
 	apt-get update && \
@@ -25,7 +27,14 @@ RUN chmod +x /script/*.sh && \
 	mkdir -p /var/run/sshd && \
 	sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
 	sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
-	sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
+	sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
+	apt-get install -y locales && \
+	locale-gen zh_TW.UTF-8 && \
+	DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales && \ 
+	locale-gen zh_TW.UTF-8 && \
+	echo "export LANG=zh_TW.UTF-8" >> /root/.profile && \ 
+	echo "export LANGUAGE=zh_TW" >> /root/.profile && \
+	echo "export LC_ALL=zh_TW.UTF-8" >> /root/.profile
 
 
 ENV AUTHORIZED_KEYS **None**
