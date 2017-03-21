@@ -34,7 +34,23 @@ RUN chmod +x /script/*.sh && \
 	locale-gen zh_TW.UTF-8 && \
 	echo "export LANG=zh_TW.UTF-8" >> /root/.profile && \ 
 	echo "export LANGUAGE=zh_TW" >> /root/.profile && \
-	echo "export LC_ALL=zh_TW.UTF-8" >> /root/.profile
+	echo "export LC_ALL=zh_TW.UTF-8" >> /root/.profile && \
+	cd /usr/src && \
+	wget ftp://ftp.ruby-lang.org/pub/ruby/1.8/ruby-1.8.6.tar.bz2 && \
+	tar xvjf ruby-1.8.6.tar.bz2 && \
+	cd ruby-1.8.6 && \
+	sed -i 's/elif define(ERANGE)/elif defined(ERANGE)/g'  math.c && \
+	./configure && \
+	make && \
+	make install && \
+	cd .. && \
+	wget ftp://sourceforge.mirrorservice.org/sites/download.salixos.org/i486/extra-14.2/source/multimedia/flvtool2/flvtool2-1.0.6.tgz && \
+	tar xzf flvtool2-1.0.6.tgz && \
+	cd flvtool2-1.0.6 && \
+	/usr/local/bin/ruby setup.rb config && \
+	/usr/local/bin/ruby setup.rb setup && \
+	/usr/local/bin/ruby setup.rb install && \
+	apt-get install mediainfo
 
 
 ENV AUTHORIZED_KEYS **None**
