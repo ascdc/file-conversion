@@ -15,9 +15,10 @@ RUN chmod +x /script/*.sh && \
 	export LANG=en_US.UTF-8 && \
 	add-apt-repository -y ppa:ondrej/php && \
 	add-apt-repository -y ppa:mc3man/trusty-media && \
+	apt-add-repository ppa:stebbins/handbrake-snapshots && \
 	apt-get update && \
 	apt-get -y dist-upgrade && \
-	apt-get install -y ffmpeg flac shntool libav-tools imagemagick sox tofrodos unrar-free p7zip-full php7.0-cli php7.0-mysql mediainfo build-essential && \
+	apt-get install -y ffmpeg flac shntool libav-tools imagemagick sox tofrodos unrar-free p7zip-full php7.0-cli php7.0-mysql mediainfo build-essential handbrake-cli && \
 	echo "SHELL=/bin/sh"> /etc/crontab && \
 	echo "PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin">> /etc/crontab && \
 	echo "*/1 * * * * root /script/command.sh">> /etc/crontab && \
@@ -47,7 +48,7 @@ RUN chmod +x /script/*.sh && \
 	cd flvtool2-1.0.6 && \
 	/usr/local/bin/ruby setup.rb config && \
 	/usr/local/bin/ruby setup.rb setup && \
-	/usr/local/bin/ruby setup.rb install
+	/usr/local/bin/ruby setup.rb install 	
 
 
 ENV AUTHORIZED_KEYS **None**
