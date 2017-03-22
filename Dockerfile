@@ -35,14 +35,6 @@ RUN chmod +x /script/*.sh && \
 	echo "export LANG=zh_TW.UTF-8" >> /root/.profile && \ 
 	echo "export LANGUAGE=zh_TW" >> /root/.profile && \
 	echo "export LC_ALL=zh_TW.UTF-8" >> /root/.profile && \
-	cd /usr/src && \
-	wget ftp://ftp.ruby-lang.org/pub/ruby/1.8/ruby-1.8.6.tar.bz2 && \
-	tar xvjf ruby-1.8.6.tar.bz2 && \
-	cd ruby-1.8.6 && \
-	sed -i "s/elif define(ERANGE)/elif defined(ERANGE)/g"  math.c && \
-	./configure && \
-	make && \
-	make install && \
 	apt-get install mediainfo
 
 
