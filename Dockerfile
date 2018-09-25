@@ -51,7 +51,8 @@ RUN chmod +x /script/*.sh && \
 	cd flvtool2-1.0.6 && \
 	/usr/local/bin/ruby setup.rb config && \
 	/usr/local/bin/ruby setup.rb setup && \
-	/usr/local/bin/ruby setup.rb install 	
+	/usr/local/bin/ruby setup.rb install && \
+	apt-get install -y exiftool
 
 
 ENV AUTHORIZED_KEYS **None**
